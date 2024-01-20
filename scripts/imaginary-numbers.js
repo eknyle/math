@@ -7,15 +7,19 @@ function writeBi(number){
         message=number-sqrt*sqrt===0?sqrt:sqrt+'V'+(number-sqrt*sqrt);
     }else{
         sqrt=findSqrtNumber(Math.abs(number));
-        message=Math.abs(number)-sqrt*sqrt===0?'('+sqrt+')i':'('+sqrt+'V'+(Math.abs(number)-sqrt*sqrt)+')i';
+        message=Math.abs(number)-sqrt*sqrt===0?sqrt+'i':'('+sqrt+'V'+(Math.abs(number)-sqrt*sqrt)+')i';
     }
     return message;
 }
 function findSqrtNumber(number){
-    let i=number;
-    for (;i>0;i--){
-        if (Math.sqrt(i) % 2==0){
-            return Math.sqrt(i);
+    if (Math.sqrt(number) % 1==0){
+        return Math.sqrt(number);
+    }else {
+        let i=number;
+        for (;i>0;i--){
+            if (Math.sqrt(i) % 1==0){
+                return Math.sqrt(i);
+            }
         }
     }
 }
