@@ -1,27 +1,48 @@
 //write in form bi, where b in R; use imaginary numbers
-function writeBi(number){
-    let message='';
-    let sqrt=0;
-    if (number>0){
-        sqrt=findSqrtNumber(number);
-        message=number-sqrt*sqrt===0?sqrt:sqrt+'V'+(number-sqrt*sqrt);
-    }else{
-        sqrt=findSqrtNumber(Math.abs(number));
-        message=Math.abs(number)-sqrt*sqrt===0?sqrt+'i':'('+sqrt+'V'+(Math.abs(number)-sqrt*sqrt)+')i';
+function writeBi(number) {
+  let message = "";
+  let sqrt = 0;
+  if (number > 0) {
+    //если число положительное
+    sqrt = findSqrtNumber(number); //ищем корень
+    if (sqrt === number) {
+      //если вернулось чилсо равное исходному, значит целого корня у числа нет
+      message = "V" + sqrt; //записываем ответ
+    } else {
+      //если целый корень у числа есть
+      message =
+        number - sqrt * sqrt === 0 ? sqrt : sqrt + "V" + number / (sqrt * sqrt);
     }
-    return message;
+  } else {//если число отрицательное
+    sqrt = findSqrtNumber(Math.abs(number));//ищем корень 
+    if (sqrt === Math.abs(number)) {//если вернулось исходное число, значит корня нет
+      message = "V" + sqrt + "i";//записываем ответ
+    } else {//если вернулось число отличное от исходного, значит корень есть
+      message =
+        Math.abs(number) - sqrt * sqrt === 0
+          ? sqrt + "i"
+          : "(" + sqrt + "V" + Math.abs(number) / (sqrt * sqrt) + ")i";
+    }
+  }
+  return message;
 }
-function findSqrtNumber(number){
-    if (Math.sqrt(number) % 1==0){
-        return Math.sqrt(number);
-    }else {
-        let i=number;
-        for (;i>0;i--){
-            if (Math.sqrt(i) % 1==0){
-                return Math.sqrt(i);
-            }
+//функция поиска корня числа
+function findSqrtNumber(number) {
+  let result = number;
+  if (Math.sqrt(number) % 1 === 0) {
+    result = Math.sqrt(number);
+  } else {
+    for (let i = 2; i < number; i++) {
+      if (number % i === 0) {
+        let tmp = Math.sqrt(number / i);
+        if (tmp % 1 === 0) {
+          result = tmp;
+          break;
         }
+      }
     }
+  }
+  return result;
 }
 
 console.log(writeBi(-9));
